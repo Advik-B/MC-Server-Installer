@@ -95,7 +95,11 @@ class bukkit():
 
             '1.9.4':'https://www.mediafire.com/file/tflz6u8dppbb6hk/craftbukkit-1.9.4-R0.1-SNAPSHOT-latest.jar/file'
             }
+
         self.versions = versions
+        version = versions.keys()
+        if version_number in version:
+            print(True)
 
     def download(link:str) -> None:
 
