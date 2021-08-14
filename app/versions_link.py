@@ -7,7 +7,7 @@ class bukkit():
 
         versions = {
 
-            "1.0.0":"https://www.mediafire.com/file/qggkbn2uombgzwb/craftbukkit-1.0.0-SNAPSHOT.jar/file",
+            "1.0":"https://www.mediafire.com/file/qggkbn2uombgzwb/craftbukkit-1.0.0-SNAPSHOT.jar/file",
 
             "1.10":"https://www.mediafire.com/file/4muyx3rb98awvw6/craftbukkit-1.10-R0.1-SNAPSHOT-latest.jar/file",
 
@@ -98,10 +98,17 @@ class bukkit():
 
         self.versions = versions
         version = versions.keys()
+        # print(version , sep=' | ')
         if version_number in version:
-            print(True)
+            download_url = versions[version_number]
+            return download_url
+        else:
+            print()
+            print(f'The version "{version_number}" is not found!')
+            print()
+            return "about:blank"
 
-    def download(link:str) -> None:
+    def download(self ,link:str , folder_path=None) -> None:
 
 
         headers = {
@@ -119,10 +126,19 @@ class bukkit():
 
         url = soup.find("a", class_="popsok").get('href')
         r = requests.get(url)
+        if folder_path != None:
+            file_path = folder_path.__add__('/server.jar').replace('\\' , '/')
+        else:
+            file_path = ('./server.jar')
 
         print ("File Name : " + soup.find("div", class_="filename").get_text())
         print (soup.find("ul", class_="details").get_text())
 
-        with open(soup.find("div", class_="filename").get_text(), 'wb') as f:
+        with open(file_path, 'wb') as f:
             f.write(r.content)
-            print('Done ...')
+            print('Sucessfully downloaded the server file!')
+
+    
+version_link = bukkit().get_link('1.0')
+
+bukkit().download(version_link)
