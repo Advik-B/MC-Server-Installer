@@ -59,11 +59,45 @@ class bukkit():
 
             '1.5.1':'https://www.mediafire.com/file/059tkqx8f6lucvv/craftbukkit-1.5.1-R0.2-SNAPSHOT.jar/file',
 
-            '1.5.2':'https://www.mediafire.com/file/fkhxs9lmfjpeke2/craftbukkit-1.5.2-R1.0.jar/file'
+            '1.5.2':'https://www.mediafire.com/file/fkhxs9lmfjpeke2/craftbukkit-1.5.2-R1.0.jar/file',
+
+            '1.6.1':'https://www.mediafire.com/file/bvm5uaj6jwzhtfv/craftbukkit-1.6.1-R0.1-SNAPSHOT.jar/file',
+
+            '1.6.2':'https://www.mediafire.com/file/7wufblk1pxx9hoz/craftbukkit-1.6.2-R0.1-SNAPSHOT.jar/file',
+
+            '1.6.4':'https://www.mediafire.com/file/zbiaup01m60muho/craftbukkit-1.6.4-R2.0.jar/file',
+
+            '1.7.10':'https://www.mediafire.com/file/08q8kt9ew4gp3uo/craftbukkit-1.7.10-R0.1-20140808.005431-8.jar/file',
+
+            '1.7.2':'https://www.mediafire.com/file/ygrbvn740d7e7xh/craftbukkit-1.7.2-R0.4-20140216.012104-3.jar/file',
+
+            '1.7.5':'https://www.mediafire.com/file/vo3wf2syjrd69ej/craftbukkit-1.7.5-R0.1-20140402.020013-12.jar/file',
+
+            '1.7.8':'https://www.mediafire.com/file/t9zin87c41jexpr/craftbukkit-1.7.8-R0.1-SNAPSHOT.jar/file',
+
+            '1.7.9':'https://www.mediafire.com/file/qrdipu15pp8eemg/craftbukkit-1.7.9-R0.2-SNAPSHOT.jar/file',
+
+            '1.8':'https://www.mediafire.com/file/6tg00x0z1k8kfrr/craftbukkit-1.8-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.8.3':'https://www.mediafire.com/file/a8d2j3g5dxgbsk2/craftbukkit-1.8.3-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.8.5':'https://www.mediafire.com/file/8f78h29eauwj6nj/craftbukkit-1.8.5-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.8.6':'https://www.mediafire.com/file/e6h81q5l06p7cb0/craftbukkit-1.8.6-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.8.7':'https://www.mediafire.com/file/4b1hbyzhhs3bw5g/craftbukkit-1.8.7-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.8.9':'https://www.mediafire.com/file/1bll4cwxlilhsdu/craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.9':'https://www.mediafire.com/file/mw0rdz23aj9r7qg/craftbukkit-1.9-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.9.2':'https://www.mediafire.com/file/3ez9jng9iynmter/craftbukkit-1.9.2-R0.1-SNAPSHOT-latest.jar/file',
+
+            '1.9.4':'https://www.mediafire.com/file/tflz6u8dppbb6hk/craftbukkit-1.9.4-R0.1-SNAPSHOT-latest.jar/file'
             }
         self.versions = versions
 
-    def download(self , link:str) -> None:
+    def download(link:str) -> None:
 
 
         headers = {
