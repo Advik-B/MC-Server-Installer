@@ -49,7 +49,17 @@ class bukkit():
 
             '1.16.3':'https://www.mediafire.com/file/cfw0z21ch0x9pru/craftbukkit-1.16.3.jar/file',
 
-            '1.16.5':'https://www.mediafire.com/file/7ygmx9kx6avrcg6/craftbukkit-1.16.5.jar/file'
+            '1.16.5':'https://www.mediafire.com/file/7ygmx9kx6avrcg6/craftbukkit-1.16.5.jar/file',
+
+            '1.17.1':'https://www.mediafire.com/file/82m7dmmr5zucms2/craftbukkit-1.17.1.jar/file',
+
+            '1.17':'https://www.mediafire.com/file/zgxj5vj1rzagd0w/craftbukkit-1.17.jar/file',
+
+            '1.5':'https://www.mediafire.com/file/vedvarjpk94pjkm/craftbukkit-1.5-R0.1-20130317.180842-21.jar/file',
+
+            '1.5.1':'https://www.mediafire.com/file/059tkqx8f6lucvv/craftbukkit-1.5.1-R0.2-SNAPSHOT.jar/file',
+
+            '1.5.2':'https://www.mediafire.com/file/fkhxs9lmfjpeke2/craftbukkit-1.5.2-R1.0.jar/file'
             }
         self.versions = versions
 
