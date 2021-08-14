@@ -1,8 +1,11 @@
+import subprocess
+import os
 import requests
 from bs4 import BeautifulSoup
 
+
 class bukkit():
-    def get_link(self , version_number:str) -> str:
+    def getlink(self , version_number:str) -> str:
         global versions
 
         versions = {
@@ -138,7 +141,26 @@ class bukkit():
             f.write(r.content)
             print('Sucessfully downloaded the server file!')
 
-    
-version_link = bukkit().get_link('1.0')
+    def runserver(self , run_command=None ,server_folder=None , server_file_name=None) -> None:
+        if server_folder == None:
+            if server_file_name == None:
+                server_file_name = 'server.jar'
+            if run_command == None:
+                run_command = 'java -Xmx1024M -Xms1024M -jar'
+
+            subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=(os.getcwd()))
+        elif server_folder != None:
+            if server_file_name == None:
+                server_file_name = 'server.jar'
+            if run_command == None:
+                run_command = 'java -Xmx1024M -Xms1024M -jar'
+
+            subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=server_folder)
+
+        
+
+version_link = bukkit().getlink('1.8.9')
 
 bukkit().download(version_link)
+
+bukkit().runserver()
