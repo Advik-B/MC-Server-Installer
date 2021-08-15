@@ -2,6 +2,7 @@ import subprocess
 import os
 import requests
 from bs4 import BeautifulSoup
+from zipfile import ZipFile
 
 class Server():
     def download(link:str , folder_path=None)  -> None:
@@ -61,3 +62,54 @@ class Server():
             with open(eula, mode='w+') as f:
                 f.write(eula_content)
             subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=path)
+    
+    def zip_download(link:str , folder_path=None) -> None:
+
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '3600',
+            'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+            }
+        MediaUrl = link
+
+        url = MediaUrl
+        req = requests.get(url, headers)
+        soup = BeautifulSoup(req.content, 'html.parser')
+
+        url = soup.find("a", class_="popsok").get('href')
+        r = requests.get(url)
+        if folder_path != None:
+            file_path = folder_path.__add__('/server.jar').replace('\\' , '/')
+        else:
+            file_path = ('./server.jar')
+
+        print ("File Name : " + soup.find("div", class_="filename").get_text())
+        print (soup.find("ul", class_="details").get_text())
+
+        with open(file_path, 'wb') as f:
+            f.write(r.content)
+            print('Sucessfully downloaded the server file!')
+
+        # importing required modules
+        from zipfile import ZipFile
+        
+        # specifying the zip file name
+        file_name = soup.find("div", class_="filename").get_text()
+        
+        # opening the zip file in READ mode
+        with ZipFile(file_name, 'r') as zip:
+            # printing all the contents of the zip file
+            zip.printdir()
+        
+            # extracting all the files
+            print('Extracting all the files now...')
+            zip.extractall()
+            print('Done!')
+
+
+        print ('\nStarting the removal of the file !')
+        os.remove(file_name)
+        
+        print ('\nFile, ', file_name, 'The file deletion is successfully completed !!')
