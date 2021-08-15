@@ -5,7 +5,19 @@ from bs4 import BeautifulSoup
 from zipfile import ZipFile
 
 class Server():
+    """
+    
+    forge and fabric require you use the `zip_download` command
+
+    """
+    
     def download(link:str , folder_path=None)  -> None:
+
+        """
+    
+        forge and fabric require you use the `zip_download` command
+
+        """
 
 
         headers = {
@@ -64,6 +76,11 @@ class Server():
             subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=path)
     
     def zip_download(link:str , folder_path=None) -> None:
+        """
+    
+            forge and fabric require you use the `zip_download` command
+
+        """
 
         headers = {
             'Access-Control-Allow-Origin': '*',
@@ -81,9 +98,9 @@ class Server():
         url = soup.find("a", class_="popsok").get('href')
         r = requests.get(url)
         if folder_path != None:
-            file_path = folder_path.__add__('/server.jar').replace('\\' , '/')
+            file_path = folder_path.__add__('/server.zip').replace('\\' , '/')
         else:
-            file_path = ('./server.jar')
+            file_path = ('./server.zip')
 
         print ("File Name : " + soup.find("div", class_="filename").get_text())
         print (soup.find("ul", class_="details").get_text())
@@ -96,20 +113,19 @@ class Server():
         from zipfile import ZipFile
         
         # specifying the zip file name
-        file_name = soup.find("div", class_="filename").get_text()
         
         # opening the zip file in READ mode
-        with ZipFile(file_name, 'r') as zip:
+        with ZipFile(file_path, 'r') as zip:
             # printing all the contents of the zip file
             zip.printdir()
         
             # extracting all the files
             print('Extracting all the files now...')
-            zip.extractall()
+            zip.extractall(folder_path)
             print('Done!')
 
 
         print ('\nStarting the removal of the file !')
-        os.remove(file_name)
+        os.remove(file_path)
         
-        print ('\nFile, ', file_name, 'The file deletion is successfully completed !!')
+        print ('\nFile, ', file_path, 'The file deletion is successfully completed !!')

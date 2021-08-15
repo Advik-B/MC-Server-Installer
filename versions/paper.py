@@ -1,4 +1,4 @@
-from default import *
+from versions.default_server import *
 
 class Paper(Server):
     def getlink(version_number:str) -> str:
