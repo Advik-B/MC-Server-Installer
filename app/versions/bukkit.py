@@ -109,7 +109,7 @@ class bukkit():
             print()
             return "about:blank"
 
-    def download(link:str , folder_path=None) -> None:
+    def download(link:str , folder_path=None)  -> None:
 
 
         headers = {
@@ -151,10 +151,7 @@ class bukkit():
             if run_command == None:
                 run_command = 'java -Xmx1024M -Xms1024M -jar'  
                   
-            eula_content = """#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\n
-#Sun Aug 15 09:55:51 IST 2021\n
-eula=true
-"""
+            eula_content = "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\n#Sun Aug 15 09:55:51 IST 2021\neula=true"
             with open(eula, mode='w+') as f:
                 f.write(eula_content)
 
@@ -165,17 +162,7 @@ eula=true
 
             if run_command == None:
                 run_command = 'java -Xmx1024M -Xms1024M -jar'
-            eula_content = """#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\n
-#Sun Aug 15 09:55:51 IST 2021\n
-eula=true
-"""
+            eula_content = "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\n#Sun Aug 15 09:55:51 IST 2021\neula=true"
             with open(eula, mode='w+') as f:
                 f.write(eula_content)
             subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=path)
-
-
-version_link = bukkit.getlink('1.12')
-
-bukkit.download(version_link , "E:\Server\p")
-
-bukkit.runserver('E:\Server\p')
