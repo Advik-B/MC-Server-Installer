@@ -11,6 +11,9 @@ class Magma(Server):
 
         }
 
+        versions['stable'] = versions['1.12']
+        versions['dev'] = versions['1.12.2']
+
         version = versions.keys()
         if version_number in version:
             download_url = versions[version_number]
