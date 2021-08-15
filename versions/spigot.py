@@ -1,6 +1,5 @@
 from default import *
 
-
 class Spigot(Server):
     def getlink(version_number:str) -> str:
         global versions
