@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 
 class bukkit():
-    def getlink(self , version_number:str) -> str:
+    def getlink(version_number:str) -> str:
         global versions
 
         versions = {
@@ -98,8 +98,6 @@ class bukkit():
 
             '1.9.4':'https://www.mediafire.com/file/tflz6u8dppbb6hk/craftbukkit-1.9.4-R0.1-SNAPSHOT-latest.jar/file'
             }
-
-        self.versions = versions
         version = versions.keys()
         # print(version , sep=' | ')
         if version_number in version:
@@ -111,7 +109,7 @@ class bukkit():
             print()
             return "about:blank"
 
-    def download(self ,link:str , folder_path=None) -> None:
+    def download(link:str , folder_path=None) -> None:
 
 
         headers = {
@@ -141,26 +139,43 @@ class bukkit():
             f.write(r.content)
             print('Sucessfully downloaded the server file!')
 
-    def runserver(self , run_command=None ,server_folder=None , server_file_name=None) -> None:
+    def runserver(server_folder=None , run_command=None , server_file_name=None) -> None:
+        cwd = os.getcwd()
+        path = server_folder
+        eula = str(os.path.join(path , 'eula.txt')).replace('\\' , '/')
+        global eula_content
+
         if server_folder == None:
             if server_file_name == None:
                 server_file_name = 'server.jar'
             if run_command == None:
-                run_command = 'java -Xmx1024M -Xms1024M -jar'
+                run_command = 'java -Xmx1024M -Xms1024M -jar'  
+                  
+            eula_content = """#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\n
+#Sun Aug 15 09:55:51 IST 2021\n
+eula=true
+"""
+            with open(eula, mode='w+') as f:
+                f.write(eula_content)
 
             subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=(os.getcwd()))
         elif server_folder != None:
             if server_file_name == None:
                 server_file_name = 'server.jar'
+
             if run_command == None:
                 run_command = 'java -Xmx1024M -Xms1024M -jar'
+            eula_content = """#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\n
+#Sun Aug 15 09:55:51 IST 2021\n
+eula=true
+"""
+            with open(eula, mode='w+') as f:
+                f.write(eula_content)
+            subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=path)
 
-            subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=server_folder)
 
-        
+version_link = bukkit.getlink('1.12')
 
-version_link = bukkit().getlink('1.8.9')
+bukkit.download(version_link , "E:\Server\p")
 
-bukkit().download(version_link)
-
-bukkit().runserver()
+bukkit.runserver('E:\Server\p')
