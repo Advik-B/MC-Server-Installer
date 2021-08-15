@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-class bukkit():
+class Bukkit():
     def getlink(version_number:str) -> str:
         global versions
 
