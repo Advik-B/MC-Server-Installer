@@ -97,7 +97,3 @@ class Paper():
             with open(eula, mode='w+') as f:
                 f.write(eula_content)
             subprocess.Popen(f'{run_command} {server_file_name} nogui' , cwd=path)
-
-Paper.download(link=(Paper.getlink('1.12.2')) , folder_path='C:/Users/advik/Desktop/temp')
-
-Paper.runserver(server_folder='C:/Users/advik/Desktop/temp')
