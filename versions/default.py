@@ -1,8 +1,16 @@
-import subprocess
 import os
-import requests
-from bs4 import BeautifulSoup
-from zipfile import ZipFile
+try:
+    import subprocess
+    import requests
+    from bs4 import BeautifulSoup
+    from zipfile import ZipFile
+except ModuleNotFoundError:
+    os.system('python -m pip install -r requirements.txt')
+    import subprocess
+    import requests
+    from bs4 import BeautifulSoup
+    from zipfile import ZipFile
+
 
 class Server():
     """
