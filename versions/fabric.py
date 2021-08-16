@@ -2,7 +2,7 @@ from versions.default import *
 
 class Fabric(Server):
     def getlink(version_number:str) -> str:
-        global versions
+        
 
         versions = {
             '1.14':'https://www.mediafire.com/file/kmc9pl2c8l4iivw/1.14.zip/file',

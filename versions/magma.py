@@ -2,7 +2,7 @@ from versions.default import *
 
 class Magma(Server):
     def getlink(version_number:str) -> str:
-        global versions
+        
 
         versions = {
 
