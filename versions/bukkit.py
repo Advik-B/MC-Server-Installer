@@ -1,4 +1,4 @@
-from versions.default_server import *
+from versions.default import *
 
 class Bukkit(Server):
     def getlink(version_number:str) -> str:
