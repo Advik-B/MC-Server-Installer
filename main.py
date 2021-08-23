@@ -5,7 +5,6 @@ import sounds
 from font import *
 root = Tk()
 class Fonts():
-    def __init__(self) -> None:
         Ubuntu_mono = Font(
             family='Ubuntu Mono',
             weight='normal',
@@ -23,7 +22,8 @@ class Fonts():
             overstrike=0,
             size=24
             )
+
 root.geometry('750x500')
-my_label = ttk.Label(root,  text='Welcome', font=Bahnschrift)
+my_label = ttk.Label(root,  text='Welcome', font=Fonts.Bahnschrift)
 my_label.pack()
 root.mainloop()
