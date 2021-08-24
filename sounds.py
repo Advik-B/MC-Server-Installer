@@ -1,11 +1,15 @@
-import pygame.mixer
+import simpleaudio as sa
 import threading
 
-def play():
-    pygame.mixer.init()
-    pygame.mixer.music.load('./assets/sounds/lever.wav')
-    pygame.mixer.music.play(loops=0)
+def play(wav_path) -> None:
+    wave_object = sa.WaveObject.from_wave_file(wav_path)
+    play_object = wave_object.play()
+    play_object.wait_done()
 
 def button():
-    lolipop = threading.Thread(target=play)
+    lolipop = threading.Thread(target=lambda:play('./assets/sounds/lever.wav'))
     lolipop.start()
+
+def error():
+    jellybean = threading.Thread(target=lambda:play('./assets/sounds/error.wav'))
+    jellybean.start()
