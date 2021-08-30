@@ -7,6 +7,7 @@ def play(wav_path) -> None:
     play_object.wait_done()
 
 def button():
+    """Button sound"""
     lolipop = threading.Thread(target=lambda:play('./assets/sounds/lever.wav'))
     lolipop.start()
 
