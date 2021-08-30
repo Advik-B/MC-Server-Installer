@@ -14,4 +14,5 @@
 So you can install your favorate server with the click of a button!
 
 
-## What are you waiting for just download it!
+## What are you waiting for just download it [Here!](https://codeload.github.com/Advik-B/Server-Installer/zip/refs/heads/main)
+
