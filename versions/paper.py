@@ -1,7 +1,7 @@
 from versions.default import *
 
 class Paper(Server):
-    def getlink(version_number:str) -> str:
+    def __init__(version_number:str) -> str:
         
 
         versions = {
