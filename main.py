@@ -21,10 +21,15 @@ def eula() -> str:
         return content
 
 def failed_to_agree() -> 1:
+    error()
     print()
     __str = f'-^-^-^-^-^-^-^-^-^-YOU NEED TO AGREE TO THE ABOVE AGREEMENT!-^-^-^-^-^-^-^-^-^-'
     getpass(__str.center(80))
     return 1
+
+#defining things
+global mode
+mode = False
 
 
 eula()
@@ -34,9 +39,13 @@ while True:
         exit(failed_to_agree())
     elif answer == 'y':
         print()
+        mode = True
         break
     else:
         clear()
         error()
         eula()
-        continue
+        continue #looping
+
+if mode == True:
+    pass
