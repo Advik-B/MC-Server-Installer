@@ -1,5 +1,3 @@
-# Welcome to my website!
-
 ## *About:*
  This repo aims to aid and help in installation of minecraft servers
  
