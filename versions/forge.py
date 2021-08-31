@@ -3,7 +3,7 @@ from versions.default import *
 class Forge(Server):
     """Forge (1.17) needs to be run with:\n\t `java @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.17.1-37.0.34/win_args.txt`"""
 
-    def __init__(version_number:str) -> str:
+    def getlink(version_number:str) -> str:
 
         """Forge (1.17) needs to be run with:\n\t `java @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.17.1-37.0.34/win_args.txt`"""
         

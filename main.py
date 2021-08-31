@@ -1,3 +1,4 @@
+from msilib.schema import Class
 from threading import *
 from versions.fabric import *
 from versions.forge import *
@@ -11,7 +12,7 @@ from function.most_used import *
 from sounds import *
 from getpass import getpass
 
-#defining things
+#Functions
 def clear() -> None:
     os.system("cls")
 
@@ -36,17 +37,22 @@ def list_versions():
 def cls():
     clear()
 
+def check_versions(type , version):
+    print(type(version))
+
 global data
 global data2
+global current_version
 
 data = {'1':'vanilla', '2':'bukkit', '3':'spigot', '4':'paper', '5':'forge', '6':'fabric', '7':'magma', '8':'mohist'}
 
 for __key , __value in data.items():
     data2 = {__value:__key}
 
-eula()
-
 while True:
+    clear()
+    error()
+    eula()
     answer = str(prinput('Do agree to the above license/agreement [Y/N]')).casefold()
     if  answer == 'n':
         exit(failed_to_agree())
@@ -54,9 +60,6 @@ while True:
         print()
         break
     else:
-        clear()
-        error()
-        eula()
         continue #looping
 
 button()
@@ -70,6 +73,7 @@ while True:
     version = input('>>> ')
     try:
         current_version = data[version.casefold()]
+        del version
         break
     except KeyError:
         
@@ -79,6 +83,28 @@ button()
 cls()
 print()
 
+# Getting the versions
+versions = {
+
+    'bukkit': Bukkit,
+    'spigot': Spigot,
+    'paper' : Paper,
+    'forge' : Forge,
+    'fabric': Fabric,
+    'magma' : Magma,
+    'mohist': Mohist,
+
+    }
+
+version = versions.get(current_version)
+
+
 while True:
     cls()
-    print('What version do you want')
+    get_version = prinput('What version do you want')
+    sel_version = version.getlink(get_version)
+    if sel_version != 'about:blank':
+        pass
+    else:
+        Server.download(sel_version)
+        break
