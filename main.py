@@ -59,7 +59,7 @@ def gettempfol(mode:bool=True):
 global data
 global data2
 global current_version
-data = {'1':'vanilla', '2':'bukkit', '3':'spigot', '4':'paper', '5':'forge', '6':'fabric', '7':'magma', '8':'mohist'}
+data = {'1':'bukkit', '2':'spigot', '3':'paper', '4':'forge', '5':'fabric', '6':'magma', '7':'mohist'}
 desktop = str(os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')).replace('\\' , '/')
 
 for __key , __value in data.items():

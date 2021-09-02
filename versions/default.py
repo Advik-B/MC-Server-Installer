@@ -108,18 +108,22 @@ class Server():
         soup = BeautifulSoup(req.content, 'html.parser')
 
         url = soup.find("a", class_="popsok").get('href')
-        r = requests.get(url)
+        r = requests.get(url ,stream=True)
         if folder_path != None:
             file_path = folder_path.__add__('/server.zip').replace('\\' , '/')
         else:
             file_path = ('./server.zip')
 
-        print ("File Name : " + soup.find("div", class_="filename").get_text())
+        print ("Server-Type : " + soup.find("div", class_="filename").get_text())
         print (soup.find("ul", class_="details").get_text())
 
-        with open(file_path, 'wb') as f:
-            f.write(r.content)
-            print('Sucessfully downloaded the server file!')
+        print('Downloading, please wait.')
+        with open(file_path,'wb') as f:
+            for chunk in r.iter_content(chunk_size=1000):
+                if chunk:
+                    f.write(chunk)
+        print()
+        print('Download completed!')
 
         # importing required modules
         from zipfile import ZipFile
@@ -129,15 +133,6 @@ class Server():
         # opening the zip file in READ mode
         with ZipFile(file_path, 'r') as zip:
             # printing all the contents of the zip file
-            zip.printdir()
-        
             # extracting all the files
-            print('Extracting all the files now...')
             zip.extractall(folder_path)
-            print('Done!')
-
-
-        print ('\nStarting the removal of the file !')
         os.remove(file_path)
-        
-        print ('\nFile, ', file_path, 'The file deletion is successfully completed !!')
