@@ -1,7 +1,7 @@
 ## *About:*
  This repo aims to aid and help in installation of minecraft servers
  
- This is a [gui](https://github.com/Advik-B/Server-Installer/blob/main/screen1.py) / [command-line](https://github.com/Advik-B/Server-Installer/blob/main/main.py) based app that runs on python
+ This is a [gui](https://www.google.com/search?q=GUI) / [command-line](https://www.google.com/search?q=command+line) based app that runs on python
  
  With the help of python programming and html scrapping...
  
