@@ -14,3 +14,7 @@ def button():
 def error():
     jellybean = threading.Thread(target=lambda:play('./assets/sounds/error.wav'))
     jellybean.start()
+
+def ding():
+    dong= threading.Thread(target=lambda:play('./assets/sounds/ding.wav'))
+    dong.start()

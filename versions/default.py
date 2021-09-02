@@ -42,18 +42,22 @@ class Server():
         soup = BeautifulSoup(req.content, 'html.parser')
 
         url = soup.find("a", class_="popsok").get('href')
-        r = requests.get(url)
+        r = requests.get(url , stream=True)
         if folder_path != None:
             file_path = folder_path.__add__('/server.jar').replace('\\' , '/')
         else:
             file_path = ('./server.jar')
 
-        print ("File Name : " + soup.find("div", class_="filename").get_text())
+        print ("Server-Type : " + soup.find("div", class_="filename").get_text())
         print (soup.find("ul", class_="details").get_text())
 
-        with open(file_path, 'wb') as f:
-            f.write(r.content)
-            print('Sucessfully downloaded the server file!')
+        print('Downloading, please wait.')
+        with open(file_path,'wb') as f:
+            for chunk in r.iter_content(chunk_size=1000):
+                if chunk:
+                    f.write(chunk)
+        print()
+        print('Download completed!')
 
     def runserver(server_folder=None , run_command=None , server_file_name=None) -> None:
         cwd = os.getcwd()
