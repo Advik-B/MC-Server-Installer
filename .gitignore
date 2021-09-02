@@ -9,3 +9,7 @@
 *server/
 
 *.conf
+
+*.spec
+
+*build/
