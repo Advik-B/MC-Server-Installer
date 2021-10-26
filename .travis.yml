@@ -9,6 +9,7 @@ python:
 # command to install dependencies
 install:
   - python3 -m pip install -r requirements.txt
+  - sudo apt-get install libasound2-dev
 # command to run tests
 script:
   - wget 'https://gist.githubusercontent.com/Advik-B/a4cd369be0faae53c8e6d111f47353e4/raw/88b0e9652a7697bf87f7cc7d019c4b41d0e6da16/runtests.py'
