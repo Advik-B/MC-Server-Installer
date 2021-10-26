@@ -3,7 +3,7 @@
 #! NOTE: I get all the links form https://mcversions.net/
 #TODO: Add some config shit here
 
-#TEMP: BEGINING: All the code below this is temp
+#TEMP: BEGINING: All the code below this is temp and will be removed
 vanilla = {
     
     "1.17.1":'https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar',
