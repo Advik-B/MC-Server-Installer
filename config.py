@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-#: This is the config file. 
+#: This is the config and functions file. 
 #: DO NOT CHANGE IT UNLESS YOU KNOW WHAT YOU ARE DOING!
 
 
 #NOTE: I get all the files from https://mcversions.net/
-#TODO: Add some config shit here
 
 #TEMP: BEGINING: All the code below this is temp and will be removed
 from bs4 import BeautifulSoup
 import requests
 
-class VersionError(Exception): pass # This is a one-line class. Just to make an error instance
+class VersionError(Exception): """The selected version is invalid or unavailable""" # This is a one-line class. Just to make an error instance
 
 def get_server(version:str) -> str:
     """Gets a server download link with the version given
@@ -55,5 +54,7 @@ def get_server(version:str) -> str:
         raise VersionError('The version %s is not valid' % version)
 
 
-get_server('1.8.sdf9')
 #TEMP: END: All the code form this line starts counting
+if __name__ == '__main__':
+    print(f'Hey you running this file as {__name__}. Which means that you are running this file directly. Please import it instead!')
+    exit(-1)
