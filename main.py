@@ -16,6 +16,7 @@ import json_util
 import psutil
 from PIL import Image, ImageTk
 from random import randint
+from threading import Thread
 
 mem = psutil.virtual_memory() # Getting the current system memory
 mini_mem = 2500 * 1024 * 1024 # 2.5 GB
@@ -69,7 +70,30 @@ versions.extend(ver['snapshots'])
 binFont = ['Vendara', 18]
 
 del ver
+
+running = True
+
+valid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/valid.png'))
+invalid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/invalid.png'))
 raw_json.close()
+gorb = Button(gui, image=valid_img, border=0, activebackground='#2b2d37', background='#2b2d37')
+gorb.grid(row=2, column=1)
+
+def __eval():
+    def valid():
+        messagebox.showinfo(':::: INFO ::::','The version %s is valid')
+    def invalid():
+        messagebox.showerror(':::: ERROR ::::', 'The version %s is invalid!')
+    while running:
+        if ver.get() not in versions:
+            gorb.config(image=invalid_img, command=invalid)
+        elif ver.get() in versions:
+            gorb.config(image=valid_img, command=valid)
+
+def eval_():
+    t = Thread(target=__eval)
+    t.start()
+
 
 ver = StringVar()
 versions_ = ttk.Combobox(gui, values=versions, textvariable=ver, background='#2b2d37', foreground='#2b2d37')
@@ -84,4 +108,6 @@ versions_.grid(row=2, column=0, pady=15)
 if __name__ == '__main__': # Making shure that the file is run directly
     if mem.total < mini_mem:
         messagebox.showwarning(':::: WARNING ::::', 'WARNING: Not enough memory to run Minecraft servers\n\t   The servers will be slow and laggy!')
+    eval_()
     gui.mainloop()
+    running = False
