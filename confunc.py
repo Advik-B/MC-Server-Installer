@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
-#: This is the config and functions file. 
 #: DO NOT CHANGE IT UNLESS YOU KNOW WHAT YOU ARE DOING!
-
+#: This is the config and functions file. Thats why it is called confunc
 
 #NOTE: I get all the files from https://mcversions.net/
 
-
 if __name__ == '__main__':
-    print(f'Hey you running this file as {__name__}. Which means that you are running this file directly. Please import it instead!')
-    exit(-1)
+    print(f'You are running this file directly. Please import it instead!')
+    exit(-2)
+
 from bs4 import BeautifulSoup
+from tkinter.ttk import Progressbar
 import requests
 
 class VersionError(Exception): """The selected version is invalid or unavailable"""
 class LinkNotFound(Exception): """The page exists but the server links does not exist"""
 
-def get_server(version:str) -> str:
+def get_server_link(version:str) -> str:
     """Gets a server download link with the version given
     
     ---
@@ -54,4 +54,63 @@ def get_server(version:str) -> str:
         else:
             raise VersionError('The version %s is not valid' % version)
 
-def download_server():
+def download_server(version:str, output_folder:str=None):
+    import os
+    from clint.textui import progress
+    url = get_server_link(version)
+    r = requests.get(url, stream=True)
+    if output_folder is None:
+        output_folder = os.getcwd()
+        
+    path = os.path.join(output_folder, 'server.jar')
+    with open(path, 'wb') as f:
+        total_length = int(r.headers.get('content-length', 0))
+        for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length/1024) + 1): 
+            if chunk:
+                f.write(chunk)
+                f.flush()
+
+def download_server_Tk_ST(version:str, bar:Progressbar, output_folder:str=None):
+    """
+    Download The minecraft server(Single Threaded)
+    
+    ---
+    
+    Args:
+    -
+    
+        version (str): The mineceaft version
+        bar (Progressbar): The progress-bar
+        output_folder (str, optional): The output-folder. Defaults to None.
+    """
+    import os
+    from clint.textui import progress
+    url = get_server_link(version)
+    r = requests.get(url, stream=True)
+    if output_folder is None:
+        output_folder = os.getcwd()
+    
+    path = os.path.join(output_folder, 'server.jar')
+    with open(path, 'wb') as f:
+        total_length = int(r.headers.get('content-length', 0))
+        bar.config(maximum=total_length)
+        for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length/1024) + 1): 
+            if chunk:
+                f.write(chunk)
+                f.flush()
+                bar.step(1024)
+
+def download_server_Tk(version:str, bar:Progressbar, output_folder:str=None):
+    """Download The minecraft server(Multi Threaded)
+    
+    ---
+    Args:
+    -
+    
+        version (str): The mineceaft version
+        bar (Progressbar): The progress-bar
+        output_folder (str, optional): The output-folder. Defaults to None.
+    """
+    from threading import Thread
+    t = Thread(target=lambda: download_server_Tk_ST(version, bar, output_folder))
+    t.start()
