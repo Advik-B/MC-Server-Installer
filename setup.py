@@ -7,7 +7,7 @@ pattern = "*.*"
 
 include_files=[]
 
-blacklist_dirs = ['.git', '__pycache__', 'docs']
+blacklist_dirs = ['.git', '__pycache__', 'docs', 'assets\\fonts']
 
 blacklist_dirs2 = []
 
