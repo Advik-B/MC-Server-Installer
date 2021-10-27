@@ -1,6 +1,9 @@
+pip
 requests
 bs4
+pillow
 ttkthemes
 simpleaudio
 json_util
 clint
+psutil
