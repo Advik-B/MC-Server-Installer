@@ -9,6 +9,7 @@ python:
 # command to install dependencies
 install:
   - sudo apt-get install libasound2-dev
+  - python3 -m pip install termcolor
   - python3 -m pip install -r requirements.txt
 # command to run tests
 script:
