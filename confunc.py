@@ -5,11 +5,15 @@
 
 #NOTE: I get all the files from https://mcversions.net/
 
-#TEMP: BEGINING: All the code below this is temp and will be removed
+
+if __name__ == '__main__':
+    print(f'Hey you running this file as {__name__}. Which means that you are running this file directly. Please import it instead!')
+    exit(-1)
 from bs4 import BeautifulSoup
 import requests
 
-class VersionError(Exception): """The selected version is invalid or unavailable""" # This is a one-line class. Just to make an error instance
+class VersionError(Exception): """The selected version is invalid or unavailable"""
+class LinkNotFound(Exception): """The page exists but the server links does not exist"""
 
 def get_server(version:str) -> str:
     """Gets a server download link with the version given
@@ -42,19 +46,12 @@ def get_server(version:str) -> str:
     soup = BeautifulSoup(r.text, features='html.parser')
     try:
         link = soup.find_all(class_=link_class)[0]['href']# This will get the pure link
-    except IndexError:
-        print('Oh boy! it looks like there is no server download button here.')
-    
-    error = soup.find_all(class_=error_class)
-
-
-    if len(error) == 0:
         return link
-    else:
-        raise VersionError('The version %s is not valid' % version)
+    except IndexError:
+        error = soup.find_all(class_=error_class)
+        if len(error) == 0:
+            raise LinkNotFound('The version %s is valid. but it does not have a server link.' % version)
+        else:
+            raise VersionError('The version %s is not valid' % version)
 
-
-#TEMP: END: All the code form this line starts counting
-if __name__ == '__main__':
-    print(f'Hey you running this file as {__name__}. Which means that you are running this file directly. Please import it instead!')
-    exit(-1)
+def download_server():
