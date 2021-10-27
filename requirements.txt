@@ -1,3 +1,5 @@
+requests
+bs4
 ttkthemes
 simpleaudio
 json_util
