@@ -36,9 +36,11 @@ gui.config(background='#2b2d37')
 gui.wm_title('Minercaft Server Installer')
 
 # setting the icon
-icons = []
-for icon in os.listdir(os.path.join(cwd, 'assets/pictures/icons')):
-    icons.append(os.path.join(os.path.join(cwd, 'assets/pictures/icons'), icon))
+icons = [
+    os.path.join(os.path.join(cwd, 'assets/pictures/icons'), icon)
+    for icon in os.listdir(os.path.join(cwd, 'assets/pictures/icons'))
+]
+
 gui.iconbitmap(icons[randint(0, len(icons)) - 1]) # Just to make a dynamic icon 😂
 
 # processing where the screen should appear 
@@ -60,22 +62,20 @@ gui.set_theme('plastik')
 
 # <code>
 versions = []
-raw_json = open('versions.json')
+with open('versions.json') as raw_json:
+    ver = json_util.convert_json(data=raw_json.read(), mode=1)
 
-ver = json_util.convert_json(data=raw_json.read(), mode=1)
+    versions.extend(ver['stable'])
+    versions.extend(ver['snapshots'])
 
-versions.extend(ver['stable'])
-versions.extend(ver['snapshots'])
+    binFont = ['Vendara', 18]
 
-binFont = ['Vendara', 18]
+    del ver
 
-del ver
+    running = True
 
-running = True
-
-valid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/valid.png'))
-invalid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/invalid.png'))
-raw_json.close()
+    valid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/valid.png'))
+    invalid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/invalid.png'))
 gorb = Button(gui, image=valid_img, border=0, activebackground='#2b2d37', background='#2b2d37')
 gorb.grid(row=2, column=1)
 
