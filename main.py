@@ -11,16 +11,16 @@ import os
 import confunc
 import shutil
 import subprocess
-import platform
 import json_util
+import sys
 import psutil
 from PIL import Image, ImageTk
 from random import randint
 from threading import Thread
 
+all_processes = []
 mem = psutil.virtual_memory() # Getting the current system memory
 mini_mem = 2500 * 1024 * 1024 # 2.5 GB
-print(mem)
 
 # The current working dirctory
 cwd = os.getcwd()
@@ -72,7 +72,7 @@ with open('versions.json') as raw_json:
 
     del ver
 
-    running = True
+
 
     valid_img = ImageTk.PhotoImage(
         image=Image.open(
@@ -84,34 +84,96 @@ with open('versions.json') as raw_json:
             'assets/pictures/invalid.png'
             ),
         )
+    ok_img = ImageTk.PhotoImage(
+        image=Image.open(
+            'assets/pictures/hua.png'
+        ),
+    )
 gorb = Button(gui, image=valid_img, border=0, activebackground='#2b2d37', background='#2b2d37')
 
 
-def __eval():
+def _check_version():
     def valid():
         messagebox.showinfo(':::: INFO ::::','The version %s is valid' % ver.get())
     def invalid():
         messagebox.showerror(':::: ERROR ::::', 'The version %s is invalid!' % ver.get())
-    while running:
+    def hua():
+        messagebox.showinfo(':::: INFO ::::', 'No version has been provided')
+    while True:
         if ver.get().replace(' ','').replace('\n','') == '':
-            gorb.config()
+            gorb.config(image=ok_img, command=hua)
+            Next_btn.config(state=DISABLED)
+            continue
         if ver.get() not in versions:
             gorb.config(image=invalid_img, command=invalid)
+            Next_btn.config(state=DISABLED)
+            
         elif ver.get() in versions:
             gorb.config(image=valid_img, command=valid)
+            Next_btn.config(state='!disabled')
 
-def eval_():
-    t = Thread(target=__eval)
-    t.start()
+def _check_path():
+    def valid(var):
+        messagebox.showinfo(':::: INFO ::::', 'The server will installed in:\n\t%s' % var)
+    def hua(var):
+        messagebox.showwarning(':::: WARNING ::::', 'The directory does not exist\nit will be created in %s' % var)
+    def invalid(var):
+        messagebox.showerror(':::: ERROR ::::', 'The path %s is invalid' % var)
+        
+    while True:
+        path = path_folder.get()
+        if os.path.isdir(path):
+            if os.listdir(path) == []:
+                valid_invalid_ver.config(image=valid_img, command=lambda:valid(path))
+                Next_btn.config(state='!disabled')
+            else:
+                valid_invalid_ver.config(image=invalid_img, command=lambda:invalid(path))
+                Next_btn.config(state='disabled')
+        else:
+            valid_invalid_ver.config(image=ok_img, command=lambda:hua(path))
+            Next_btn.config(state='!disabled')
+            continue
 
+# Mutithreading
+#: t1
+t1 = Thread(target=_check_version)
+t1.setName('Version validator')
+t1.daemon = True
+all_processes.append(t1)
+#: t2
+t2 = Thread(target=_check_path)
+t2.setName('Install-Path validator')
+t2.daemon = True
+all_processes.append(t2)
 
 ver = StringVar()
 versions_ = ttk.Combobox(gui, values=versions, textvariable=ver, background='#2b2d37', foreground='#2b2d37')
-Title = ttk.Label(gui, text='Please choose your server version.', font=binFont, background='#2b2d37', foreground='white')#TODO: change `server` to `minecraft`
+Title = ttk.Label(gui,
+                  text='Please choose your server version.',
+                  font=binFont, background='#2b2d37',
+                  foreground='white')#TODO: change `server` to `minecraft`
+
+path_lbl = ttk.Label(gui,
+                  text='Path of the server',
+                  font=binFont,
+                  foreground='white',
+                  background='#2b2d37')
+
+path_folder = ttk.Entry(gui,
+                        foreground='#2b2d37',
+                        font=['Ubuntu Mono', 15],
+                        width=50
+                        )
+valid_invalid_ver = Button(gui, image=valid_img, border=0, activebackground='#2b2d37', background='#2b2d37')
+
+Next_btn = ttk.Button(gui, text='Next')
 
 Title.grid(row=1, column=0, padx=150)
 versions_.grid(row=2, column=0, pady=15)
 gorb.grid(row=2, column=0, sticky=E, columnspan=1000)
+path_lbl.grid(row=3, column=0)
+path_folder.grid(row=4, column=0)
+valid_invalid_ver.grid(row=4, column=1)
 
 # </code>
 
@@ -119,6 +181,17 @@ gorb.grid(row=2, column=0, sticky=E, columnspan=1000)
 if __name__ == '__main__': # Making shure that the file is run directly
     if mem.total < mini_mem:
         messagebox.showwarning(':::: WARNING ::::', 'WARNING: Not enough memory to run Minecraft servers\n\t   The servers will be slow and laggy!')
-    eval_()
+    
+    # Starting the threads
+    
+    t1.start()
+    t2.start()
+    
+    # Mainloop
     gui.mainloop()
-    del ver
+    
+    #: Post processing
+    
+    # Update all the threads
+    for process in all_processes: process.join(.1); process.is_alive(); print('Terminating:', process.getName())
+    sys.exit(0)
