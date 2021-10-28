@@ -5,7 +5,7 @@
 #NOTE: I get all the files from https://mcversions.net/
 
 if __name__ == '__main__':
-    print(f'You are running this file directly. Please import it instead!')
+    print('You are running this file directly. Please import it instead!')
     exit(-2)
 
 from bs4 import BeautifulSoup
@@ -45,8 +45,7 @@ def get_server_link(version:str) -> str:
 
     soup = BeautifulSoup(r.text, features='html.parser')
     try:
-        link = soup.find_all(class_=link_class)[0]['href']# This will get the pure link
-        return link
+        return soup.find_all(class_=link_class)[0]['href']
     except IndexError:
         error = soup.find_all(class_=error_class)
         if len(error) == 0:

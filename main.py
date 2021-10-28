@@ -36,9 +36,11 @@ gui.config(background='#2b2d37')
 gui.wm_title('Minercaft Server Installer')
 
 # setting the icon
-icons = []
-for icon in os.listdir(os.path.join(cwd, 'assets/pictures/icons')):
-    icons.append(os.path.join(os.path.join(cwd, 'assets/pictures/icons'), icon))
+icons = [
+    os.path.join(os.path.join(cwd, 'assets/pictures/icons'), icon)
+    for icon in os.listdir(os.path.join(cwd, 'assets/pictures/icons'))
+]
+
 gui.iconbitmap(icons[randint(0, len(icons)) - 1]) # Just to make a dynamic icon 😂
 
 # processing where the screen should appear 
@@ -60,31 +62,39 @@ gui.set_theme('plastik')
 
 # <code>
 versions = []
-raw_json = open('versions.json')
+with open('versions.json') as raw_json:
+    ver = json_util.convert_json(data=raw_json.read(), mode=1)
 
-ver = json_util.convert_json(data=raw_json.read(), mode=1)
+    versions.extend(ver['stable'])
+    versions.extend(ver['snapshots'])
 
-versions.extend(ver['stable'])
-versions.extend(ver['snapshots'])
+    binFont = ['Vendara', 18]
 
-binFont = ['Vendara', 18]
+    del ver
 
-del ver
+    running = True
 
-running = True
-
-valid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/valid.png'))
-invalid_img = ImageTk.PhotoImage(image=Image.open('assets/pictures/invalid.png'))
-raw_json.close()
+    valid_img = ImageTk.PhotoImage(
+        image=Image.open(
+            'assets/pictures/valid.png'
+            ),
+        )
+    invalid_img = ImageTk.PhotoImage(
+        image=Image.open(
+            'assets/pictures/invalid.png'
+            ),
+        )
 gorb = Button(gui, image=valid_img, border=0, activebackground='#2b2d37', background='#2b2d37')
-gorb.grid(row=2, column=1)
+
 
 def __eval():
     def valid():
-        messagebox.showinfo(':::: INFO ::::','The version %s is valid')
+        messagebox.showinfo(':::: INFO ::::','The version %s is valid' % ver.get())
     def invalid():
-        messagebox.showerror(':::: ERROR ::::', 'The version %s is invalid!')
+        messagebox.showerror(':::: ERROR ::::', 'The version %s is invalid!' % ver.get())
     while running:
+        if ver.get().replace(' ','').replace('\n','') == '':
+            gorb.config()
         if ver.get() not in versions:
             gorb.config(image=invalid_img, command=invalid)
         elif ver.get() in versions:
@@ -101,6 +111,7 @@ Title = ttk.Label(gui, text='Please choose your server version.', font=binFont, 
 
 Title.grid(row=1, column=0, padx=150)
 versions_.grid(row=2, column=0, pady=15)
+gorb.grid(row=2, column=0, sticky=E, columnspan=1000)
 
 # </code>
 
@@ -110,4 +121,4 @@ if __name__ == '__main__': # Making shure that the file is run directly
         messagebox.showwarning(':::: WARNING ::::', 'WARNING: Not enough memory to run Minecraft servers\n\t   The servers will be slow and laggy!')
     eval_()
     gui.mainloop()
-    running = False
+    del ver
