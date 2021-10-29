@@ -138,12 +138,10 @@ def _check_path():
 #: t1
 t1 = Thread(target=_check_version)
 t1.setName('Version validator')
-t1.daemon = True
 all_processes.append(t1)
 #: t2
 t2 = Thread(target=_check_path)
 t2.setName('Install-Path validator')
-t2.daemon = True
 all_processes.append(t2)
 
 ver = StringVar()
@@ -183,15 +181,14 @@ if __name__ == '__main__': # Making shure that the file is run directly
         messagebox.showwarning(':::: WARNING ::::', 'WARNING: Not enough memory to run Minecraft servers\n\t   The servers will be slow and laggy!')
     
     # Starting the threads
-    
-    t1.start()
-    t2.start()
-    
+
+    for process in all_processes: print('Starting:', process.getName()); process.daemon=True; process.start()
+        
     # Mainloop
     gui.mainloop()
     
     #: Post processing
     
-    # Update all the threads
+    # Update and Stopping all the threads
     for process in all_processes: process.join(.1); process.is_alive(); print('Terminating:', process.getName())
     sys.exit(0)
