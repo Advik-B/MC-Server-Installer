@@ -3,7 +3,6 @@ cloudscraper
 bs4
 pillow
 simpleaudio
-json_util
 clint
 psutil
 pyyaml
