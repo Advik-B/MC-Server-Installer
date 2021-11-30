@@ -10,13 +10,17 @@ if __name__ == '__main__':
 
 from bs4 import BeautifulSoup
 from tkinter.ttk import Progressbar
-import cloudscraper as requests
+from tkinter import messagebox
+import cloudscraper
 import yaml
+
+requests = cloudscraper.create_scraper()
 
 class VersionError(Exception): """The selected version is invalid or unavailable"""
 class LinkNotFound(Exception): """The page exists but the server links does not exist"""
 
 def get_server_link(version:str) -> str:
+    global requests
     """Gets a server download link with the version given
     
     ---
@@ -55,6 +59,7 @@ def get_server_link(version:str) -> str:
             raise VersionError('The version %s is not valid' % version)
 
 def download_server(version:str, output_folder:str=None):
+    global requests
     import os
     from clint.textui import progress
     url = get_server_link(version)
@@ -71,6 +76,7 @@ def download_server(version:str, output_folder:str=None):
                 f.flush()
 
 def download_server_Tk_ST(version:str, bar:Progressbar, output_folder:str=None):
+    global requests
     """
     Download The minecraft server(Single Threaded)
     
@@ -85,11 +91,15 @@ def download_server_Tk_ST(version:str, bar:Progressbar, output_folder:str=None):
     """
     import os
     from clint.textui import progress
-    url = get_server_link(version)
+    try:
+        url = get_server_link(version)
+    except VersionError:
+        messagebox.showerror('Error', 'Could not find a matching server for %s' % version)
+        return
     r = requests.get(url, stream=True)
     if output_folder is None:
         output_folder = os.getcwd()
-    
+    bar.done = False
     path = os.path.join(output_folder, 'server.jar')
     with open(path, 'wb') as f:
         total_length = int(r.headers.get('content-length', 0))
@@ -99,6 +109,8 @@ def download_server_Tk_ST(version:str, bar:Progressbar, output_folder:str=None):
                 f.write(chunk)
                 f.flush()
                 bar.step(1024)
+    messagebox.showinfo('Done', 'The server has been downloaded.')
+    bar.done = True
 
 def download_server_Tk(version:str, bar:Progressbar, output_folder:str=None):
     """Download The minecraft server(Multi Threaded)
@@ -113,6 +125,7 @@ def download_server_Tk(version:str, bar:Progressbar, output_folder:str=None):
     """
     from threading import Thread
     t = Thread(target=lambda: download_server_Tk_ST(version, bar, output_folder))
+    t.daemon = True
     t.start()
 
 def get_config(conf):
