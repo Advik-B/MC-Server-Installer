@@ -8,7 +8,16 @@ pattern = "*.*"
 
 include_files=[]
 
-blacklist_dirs = ['.git', '__pycache__', 'docs', 'assets\\fonts']
+blacklist_dirs = ['.git',
+                  '__pycache__',
+                  'docs',
+                  'assets\\fonts',
+                  'venv',
+                  'build',
+                  'dist',
+                  '__pycache__',
+                  'json_utils',
+                  '.github']
 
 blacklist_dirs3 = []
 
@@ -45,7 +54,7 @@ setup(
     version='1.0.0',
     description=descriptions,
     author=author,
-    options={'build_exe':{'icon':icon, 'include_files':include_files}},
+    options={'build_exe':{'include_files':include_files}},
     executables=[Executable(main_py_file, base=base)]
 
 )
