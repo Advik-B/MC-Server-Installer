@@ -1,9 +1,9 @@
 pip
-requests
+cloudscraper
 bs4
 pillow
-ttkthemes
 simpleaudio
 json_util
 clint
 psutil
+pyyaml
