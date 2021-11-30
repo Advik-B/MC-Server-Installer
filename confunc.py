@@ -6,11 +6,12 @@
 
 if __name__ == '__main__':
     print('You are running this file directly. Please import it instead!')
-    exit(-2)
+    exit(-1)
 
 from bs4 import BeautifulSoup
 from tkinter.ttk import Progressbar
-import requests
+import cloudscraper as requests
+import yaml
 
 class VersionError(Exception): """The selected version is invalid or unavailable"""
 class LinkNotFound(Exception): """The page exists but the server links does not exist"""
@@ -113,3 +114,19 @@ def download_server_Tk(version:str, bar:Progressbar, output_folder:str=None):
     from threading import Thread
     t = Thread(target=lambda: download_server_Tk_ST(version, bar, output_folder))
     t.start()
+
+def get_config(conf):
+    config = {
+        
+        'Memory_check': True,
+               
+    }
+    try:
+        with open('config.yml', 'r') as f:
+            config_ = yaml.safe_load(f)
+        return config_[conf]
+    except FileNotFoundError:
+        print('The config file is not found. Creating a new one.')
+        with open('config.yml', 'w') as f:
+            yaml.dump(config, f)
+        return config[conf]
