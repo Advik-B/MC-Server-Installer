@@ -118,7 +118,7 @@ def download_server_Tk(version:str, bar:Progressbar, output_folder:str=None):
 def get_config(conf):
     config = {
         
-        'Memory_check': True,
+        'memory_check': True,
                
     }
     try:
