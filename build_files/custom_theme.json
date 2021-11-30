@@ -1,0 +1,101 @@
+{
+    "general":
+    {
+    	"background":"#282a36",
+    	"foreground": "#b2e4fe",
+    	"insertbackground": "#f8f8f0",
+    	"insertwidth": 1,
+    	"inactiveselectbackground": "#402725",
+        "highlightthickness": 0,
+        "borderwidth": 0
+    },
+    
+    
+    "selection":
+    {
+    	"background": "#44475a",
+    	"foreground": "#b2e4fe"
+    },
+    
+
+    "syntax":
+    {
+        "Token.Text": "#b2e4fe",
+        "Token.Other": "#b2e4fe",
+        "Token.Eror": "#f8f8f0",
+        "Token.Whitespace": "#b2e4fe",
+        "Token.Escape": "#b2e4fe",
+        
+        "Token.Keyword": "#b2e4fe",
+        "Token.Keyword.Constant": "#b2e4fe",
+        "Token.Keyword.Declaration": "#b2e4fe",
+        "Token.Keyword.Namespace": "#b2e4fe",
+        "Token.Keyword.Pseudo": "#b2e4fe",
+        "Token.Keyword.Reserved": "#b2e4fe",
+        "Token.Keyword.Type": "#b2e4fe",
+        "Token.Keyword.Other": "#b2e4fe",
+        
+        "Token.Punctuation": "#b2e4fe",
+
+        "Token.Name.Attribute": "#50fa7b",
+
+        "Token.Name.Builtin.Pseudo": {
+            "foreground": "#ffb86c",
+            "font": {
+                "bold": true
+            }
+        },
+        "Token.Name.Class": {
+            "foreground": "#8be9fd",
+            "font": {
+                "underline": true
+            }
+        },
+        "Token.Name.Constant": "#b2e4fe",
+        "Token.Name.Decorator": "#b2e4fe",
+        "Token.Name.Entity": "#b2e4fe",
+        "Token.Name.Exception": "#b2e4fe",
+        "Token.Name.Function": "#b2e4fe",
+        "Token.Name.Function.Magic": "#b2e4fe",
+        "Token.Name.Label": "#50fa7b",
+        "Token.Name.Namespace": "#b2e4fe",
+        "Token.Name.Other": "#50fa7b",
+        "Token.Name.Tag": "#b2e4fe",
+        "Token.Name.Variable": "#ffb86c",
+        "Token.Name.Variable.Class": "#b2e4fe",
+        "Token.Name.Variable.Global": "#b2e4fe",
+        "Token.Name.Variable.Instance": "#b2e4fe",
+        "Token.Name.Variable.Magic": "#b2e4fe",
+
+        "Token.Operator": "#b2e4fe",
+        "Token.Operator.Word": "#b2e4fe",
+        
+        "Token.Comment": "#b2e4fe",
+        "Token.Comment.Hashbang": "#b2e4fe",
+        "Token.Comment.Multiline": "#b2e4fe",
+        "Token.Comment.Preproc": "#b2e4fe",
+        "Token.Comment.Preprocfile": "#b2e4fe",
+        "Token.Comment.Single": "#b2e4fe",
+        "Token.Comment.Special": "#b2e4fe",
+        
+        "Token.Literal.Number.Bin": "#b2e4fe",
+        "Token.Literal.Number.Float": "#b2e4fe",
+        "Token.Literal.Number.Hex": "#b2e4fe",
+        "Token.Literal.Number.Integer": "#b2e4fe",
+        "Token.Literal.Number.Integer.Long": "#b2e4fe",
+        "Token.Literal.Number.Oct": "#b2e4fe",
+        
+        "Token.Literal.String.Affix": "#b2e4fe",
+        "Token.Literal.String.Char": "#b2e4fe",
+        "Token.Literal.String.Delimeter": "#b2e4fe",
+        "Token.Literal.String.Doc": "#b2e4fe",
+        "Token.Literal.String.Double": "#b2e4fe",
+        "Token.Literal.String.Escape": "#b2e4fe",
+        "Token.Literal.String.Heredoc": "#b2e4fe",
+        "Token.Literal.String.Interpol": "#b2e4fe",
+        "Token.Literal.String.Other": "#b2e4fe",
+        "Token.Literal.String.Regex": "#b2e4fe",
+        "Token.Literal.String.Single": "#b2e4fe",
+        "Token.Literal.String.Symbol": "#b2e4fe"
+    }
+}
